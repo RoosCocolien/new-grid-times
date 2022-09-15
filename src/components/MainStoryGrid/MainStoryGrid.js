@@ -71,23 +71,12 @@ const Wrapper = styled.div`
     'advertisement';
   margin-bottom: 48px;
 
-  & ${Divider} {
-    display: none;
-  }
-
   @media ${QUERIES.tabletAndUp} {
     grid-template-columns: 2fr 1fr;
     grid-template-areas:
       'main-story secondary-stories'
       'advertisement advertisement'
       'opinion-stories opinion-stories';
-    & ${Divider} {
-      display: block;
-
-      &:last-child {
-        display: none;
-      }
-    }
   }
 
   @media ${QUERIES.laptopAndUp} {
