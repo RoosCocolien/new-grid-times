@@ -6,6 +6,7 @@ import { MARKET_DATA, SPORTS_STORIES } from '../../data';
 import MarketCard from '../MarketCard';
 import SectionTitle from '../SectionTitle';
 import MiniStory from '../MiniStory';
+import { QUERIES } from '../../constants';
 
 const SpecialtyStoryGrid = () => {
   return (
@@ -34,11 +35,14 @@ const SpecialtyStoryGrid = () => {
         >
           Sports
         </SectionTitle>
-        <SportsStories>
-          {SPORTS_STORIES.map((data) => (
-            <MiniStory key={data.id} {...data} />
-          ))}
-        </SportsStories>
+        <SportStoriesWrapper>
+
+          <SportsStories>
+            {SPORTS_STORIES.map((data) => (
+              <MiniStory key={data.id} {...data} />
+              ))}
+          </SportsStories>
+        </SportStoriesWrapper>
       </SportsSection>
     </Wrapper>
   );
@@ -47,14 +51,57 @@ const SpecialtyStoryGrid = () => {
 const Wrapper = styled.div`
   display: grid;
   gap: 48px;
+  max-width: 100%;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'market'
+    'sports';
+
+  @media ${QUERIES.desktopAndUp} {
+    gap: 0px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'market sports'
+  }
 `;
 
-const MarketsSection = styled.section``;
+const MarketsSection = styled.section`
+  grid-area: 'market';
 
-const MarketCards = styled.div``;
+  @media ${QUERIES.desktopAndUp} {
+    padding-inline-end: 16px;
+    margin-inline-end: 16px;
+    border-inline-end: 1px solid var(--color-gray-300);    
+  }
+`;
 
-const SportsSection = styled.section``;
+const MarketCards = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  max-width: 100%;
+`;
 
-const SportsStories = styled.div``;
+const SportsSection = styled.section`
+  grid-area: 'sports'
+`;
+
+const SportStoriesWrapper = styled.div`
+  @media ${QUERIES.tabletAndUp} {
+    overflow: auto;
+  }
+`;
+
+const SportsStories = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+  @media ${QUERIES.tabletAndUp} {
+    display: flex;
+    gap: 16px;
+    max-width: 500px;
+  }
+`;
 
 export default SpecialtyStoryGrid;
